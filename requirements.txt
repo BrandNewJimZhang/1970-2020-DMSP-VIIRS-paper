@@ -1,0 +1,12 @@
+# data processing packages
+numpy
+pandas
+scipy
+
+# raster processing packages
+xarray
+rioxarray
+
+# plotting packages
+matplotlib
+seaborn
