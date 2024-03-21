@@ -46,16 +46,10 @@ for DMSP_file in DMSP_files:
     exp_list.append(np.exp(intercept))
     r2_score_list.append(r_value ** 2)
 
-# Write the slope, intercept, and R2 values to a csv file
-exp_array = np.array(exp_list).reshape(-1, 1)
-slope_array = np.array(slope_list).reshape(-1, 1)
-r2_score_array = np.array(r2_score_list).reshape(-1, 1)
+satellites = ['F10', 'F10', 'F10', 'F12', 'F12', 'F12', 'F12', 'F12', 'F12', 'F14', 'F14', 'F14', 'F14', 'F14', 'F14', 'F14', 'F15', 'F15', 'F15', 'F15', 'F15', 'F15', 'F15', 'F15', 'F16', 'F16', 'F16', 'F16', 'F16', 'F16', 'F18', 'F18', 'F18', 'F18']
+years = [1992, 1993, 1994, 1994, 1995, 1996, 1997, 1998, 1999, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013]
 
-
-#! TO DO: Some issues occur here.
-pd2=np.append(new_exp,new_b,axis=1)
-pd2=np.append(pd2,new_r2,axis=1)
-
-pd2=pd.DataFrame(pd2,columns=['a','b','R2'])
-pd2.to_excel(excel_writer='E:\\DMSP-VIIRS\\DMSP\\定标\\1饱和校正.xlsx')
-pd2
+# Write the satellites, years, slope, intercept, and R2 values to a csv file
+matrix = np.array([satellites, years, slope_list, exp_list, r2_score_list]).T
+df = pd.DataFrame(matrix, columns=['Satellite', 'Year', 'slope', 'intercept', 'R2'])
+df.to_csv(f'{DMSP_dir}/radiometric_calibration.csv', index=False)
