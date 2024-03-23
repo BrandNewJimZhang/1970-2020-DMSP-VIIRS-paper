@@ -1,5 +1,5 @@
 ###################################################################
-# File:        ./radiometric_calibration.py                       #
+# File:        ./DMSP_radiometric_calibration.py                  #
 # Author:      Haowen Zhang, Jianxi Zhang                         #
 # Date:        2024-03-12                                         #
 # Description: This script is used to perform radiometric         #
@@ -15,8 +15,10 @@ import rioxarray
 from scipy import stats
 
 # Define DMSP data directory
-DMSP_dir = 'E:/DMSP-VIIRS/DMSP' 
-# The DMSP data directory should be changed to your own directory, in our case it is 'E:/DMSP-VIIRS/DMSP'
+DMSP_dir: str = 'E:/DMSP-VIIRS/DMSP' 
+'''
+The DMSP data directory `DMSP_dir` should be changed to your own directory, in our case it is 'E:/DMSP-VIIRS/DMSP'
+'''
 
 # Load the DMSP data
 DMSP_files = [f for f in os.listdir(DMSP_dir) if f.endswith('.tif')]
@@ -51,5 +53,5 @@ years = [1992, 1993, 1994, 1994, 1995, 1996, 1997, 1998, 1999, 1997, 1998, 1999,
 
 # Write the satellites, years, slope, intercept, and R2 values to a csv file
 matrix = np.array([satellites, years, slope_list, exp_list, r2_score_list]).T
-df = pd.DataFrame(matrix, columns=['Satellite', 'Year', 'slope', 'intercept', 'R2'])
+df = pd.DataFrame(matrix, columns=['Satellite', 'Year', 'Slope', 'Intercept', 'R2'])
 df.to_csv(f'{DMSP_dir}/radiometric_calibration.csv', index=False)
