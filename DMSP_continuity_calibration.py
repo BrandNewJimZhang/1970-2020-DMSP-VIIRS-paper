@@ -11,9 +11,8 @@ import os
 import numpy as np, pandas as pd, xarray as xr, rioxarray as rxr
 
 # Define DMSP data directory
-# DMSP_dir: str = 'E:/DMSP-VIIRS/DMSP'
 DMSP_dir: str = './DMSP'
-# The DMSP data directory should be changed to your own directory, in our case it is 'E:/DMSP-VIIRS/DMSP'
+# The DMSP data directory should be changed to your own directory, in our case it is './DMSP'
 df: pd.DataFrame = pd.read_csv(f'{DMSP_dir}/radiometric_calibration.csv')
 
 # Load the DMSP data
@@ -41,6 +40,7 @@ for year in years_with_multiple_files:
     # Get the corresponding a and b values for the current year
     slope_values: np.ndarray = df[df['Year'] == year]['Slope'].values
     intercept_values: np.ndarray = df[df['Year'] == year]['Intercept'].values
+    
     
     
 

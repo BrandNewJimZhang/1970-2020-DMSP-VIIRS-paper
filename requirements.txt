@@ -10,3 +10,6 @@ rioxarray
 # plotting packages
 matplotlib
 seaborn
+
+# process tracking
+tqdm

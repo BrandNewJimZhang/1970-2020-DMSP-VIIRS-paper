@@ -14,23 +14,27 @@ import matplotlib.pyplot as plt, seaborn as sns
 import rioxarray 
 from scipy import stats
 
+from tqdm import tqdm
+
 # Define DMSP data directory
-DMSP_dir: str = 'E:/DMSP-VIIRS/DMSP' 
-'''
-The DMSP data directory `DMSP_dir` should be changed to your own directory, in our case it is 'E:/DMSP-VIIRS/DMSP'
-'''
+DMSP_dir: str = './DMSP' 
+# The DMSP data directory `DMSP_dir` should be changed to your own directory, in our case it is './DMSP'
 
 # Load the DMSP data
-DMSP_files = [f for f in os.listdir(DMSP_dir) if f.endswith('.tif')]
+DMSP_files: list[str] = [f for f in os.listdir(DMSP_dir) if f.endswith('.tif')]
 
 # Create empty lists to store the slope, intercept, and R2 values of the linear regression
-slope_list, exp_list, r2_score_list = [], [], []
+slope_list: list[np.float64] = []
+exp_list: list[np.float64] = []
+r2_score_list: list[np.float64] = []
 
 # Radiometric calibration using 2006 data
-for DMSP_file in DMSP_files:
-    DMSP_data = rxr.open_rasterio(f'{DMSP_dir}/{DMSP_file}')
-    DMSP_base_data = rxr.open_rasterio(f'{DMSP_dir}/observation/F16_20051128-20061224_rad_v4.avg_vis.tif')
+DMSP_base_data = rxr.open_rasterio(f'{DMSP_dir}/calibration/F16_20051128-20061224_rad_v4.avg_vis.tif')
 
+# Estimated time for below loop (Tested on Mac Mini, 2020, M1, 16GB RAM): 5~6 minutes
+for DMSP_file in tqdm(DMSP_files):
+    DMSP_data = rxr.open_rasterio(f'{DMSP_dir}/{DMSP_file}')
+    
     # Identify valid (non-zero) radiometric values in both the current and base DMSP data
     _, index = DMSP_data.values.reshape(1, -1).nonzero()
     _, index_base = DMSP_base_data.values.reshape(1, -1).nonzero()
