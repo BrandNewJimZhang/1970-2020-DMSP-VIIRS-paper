@@ -40,10 +40,13 @@ for year in years_with_multiple_files:
     # Get the corresponding a and b values for the current year
     slope_values: np.ndarray = df[df['Year'] == year]['Slope'].values
     intercept_values: np.ndarray = df[df['Year'] == year]['Intercept'].values
-    
-    
-    
 
+    # Load the DMSP files
+    DMSP_files
+
+
+    
+    
 raise AssertionError(f"{RED}{BOLD}The following code is not implemented yet.{RESET}")
 
 # equation(2)
